@@ -1,0 +1,25 @@
+<!DOCTYPE Desktop SYSTEM "hdl-prj.dtd">
+<DockedDesktop>
+  <ProjectWindow>
+    <Column>97</Column>
+    <Column>120</Column>
+    <Column>75</Column>
+  </ProjectWindow>
+  <WatchDlg WindowTop="-1" WindowBottom="-1" WindowLeft="-1" WindowRight="-1" CaptureLBClick="True" CaptureMouseMove="False" CaptureFromSimulator="True" SelectedTabNum="0">
+    <WatchTab InspectedTime="0" ColumnWidth="0">Inspect 1</WatchTab>
+    <WatchTab InspectedTime="0" ColumnWidth="0">Inspect 2</WatchTab>
+    <WatchTab InspectedTime="0" ColumnWidth="0">Inspect 3</WatchTab>
+    <WatchTab InspectedTime="0" ColumnWidth="0">Inspect 4</WatchTab>
+    <WatchTab InspectedTime="0" ColumnWidth="0">Inspect 5</WatchTab>
+    <WatchTab InspectedTime="0" ColumnWidth="0">Inspect 6</WatchTab>
+    <WatchTab InspectedTime="0" ColumnWidth="0">Inspect 7</WatchTab>
+  </WatchDlg>
+  <DockablePaneList>
+    <DockablePane SystemPane="3">0</DockablePane>
+  </DockablePaneList>
+  <TabWindowList>
+    <Tab PaneIndex="0" SubPaneIndex="0" SystemTabID="0" Type="Text" Line="0">.\simulation.log</Tab>
+    <Tab PaneIndex="0" SubPaneIndex="0" SystemTabID="1" Type="Text" Line="0">.\waveperl.log</Tab>
+    <Tab PaneIndex="0" SubPaneIndex="0" SystemTabID="2" Type="Misc">Breakpoints</Tab>
+  </TabWindowList>
+</DockedDesktop>

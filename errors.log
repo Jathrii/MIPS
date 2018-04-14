@@ -1,11 +1,21 @@
-Log File Generated :4/14/2018 7:24:58 AM
+Log File Generated :4/14/2018 9:51:38 AM
+* Error:
+   File Name:	C:\Users\hesha.DESKTOP-HEGBGV8\Desktop\Mips\MIPS\register_file.v
+   Line Number:	35
+  Column Number:	17
+   Text:	hdb: Error 201012: Missing name for instantiation of module: `register_file' in context:`tb.#35_17_udp_0'.
+* Error:
+   File Name:	N/A
+   Line Number:	0
+  Column Number:	0
+   Text:	simx: Error 80003: Simulator generation failed.
 * Error:
    File Name:	N/A
    Line Number:	N/A
   Column Number:	N/A
-   Text:	Invalid state (SIM_COMPILEERROR) for Command: LaunchSimulator()
+   Text:	Build unsuccessful
 * Error:
    File Name:	N/A
    Line Number:	N/A
   Column Number:	N/A
-   Text:	Invalid state (SIM_COMPILEERROR) for Command: LaunchSimulator()
+   Text:	Invalid state (SIM_COMPILEERROR) for Command: RunOrResume()

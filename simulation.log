@@ -1,12 +1,60 @@
-Log File Generated: 4/14/2018 7:24:58 AM
+Log File Generated: 4/14/2018 9:57:44 AM
 
 [Beginning Verilog MUT preparse]
 Working directory: C:\Users\hesha.DESKTOP-HEGBGV8\Desktop\Mips\MIPS
 Program arguments:
- simx  -y .\lib\verilog -y .\lib  +incdir+..\..\..\..\..\SynaptiCAD\lib\uvm\src+.\  +libext+.v+.vo  +typdelays  C:\Users\hesha.DESKTOP-HEGBGV8\Desktop\Mips\MIPS\instruction_memory.v
+ simx  -y .\lib\verilog -y .\lib  +incdir+..\..\..\..\..\SynaptiCAD\lib\uvm\src+.\  +libext+.v+.vo  +typdelays  C:\Users\hesha.DESKTOP-HEGBGV8\Desktop\Mips\MIPS\instruction_memory.v C:\Users\hesha.DESKTOP-HEGBGV8\Desktop\Mips\MIPS\data_memory.v C:\Users\hesha.DESKTOP-HEGBGV8\Desktop\Mips\MIPS\register_file.v C:\Users\hesha.DESKTOP-HEGBGV8\Desktop\Mips\MIPS\register_filetb.v
 SynaptiCAD VHDL/Verilog simulator rev. 45703.21502.
-Running in unlicensed evaluation mode.
 vlog_a: Note: Analyzing...
 vlog_a: Note: instruction_memory.v
+vlog_a: Note: data_memory.v
+vlog_a: Note: register_file.v
+vlog_a: Note: register_filetb.v
 vlog_a: Note: Parsing success. 0 error(s), 0 warning(s)
 [Verilog MUT preparse complete]
+
+Working directory: C:\Users\hesha.DESKTOP-HEGBGV8\Desktop\Mips\MIPS\
+Executable file:   C:\SynaptiCAD\bin\win32\simx32.exe
+Program arguments:
+ C:\SynaptiCAD\bin\win32\simx32.exe +libext+.v+.vo +loadpli1=syncadverilogx.dll --scd_nosim +timescale+1ns/1ps --scd_top instruction_memory --scd_top data_memory --scd_top rftb +linedebug +incdir+. -y lib/verilog -y lib
+SynaptiCAD VHDL/Verilog simulator rev. 45703.21502.
+hdb: Note: Loaded unit `instruction_memory' from library `work'.
+hdb: Note: Loaded unit `data_memory' from library `work'.
+hdb: Note: Loaded unit `rftb' from library `work'.
+elab: Note: Rebuilding simulation snapshot "instruction_memory" because its elaboration options don't match previous ones.
+vpi_r: Note: PLI veriusertfs array loaded from library: `syncadverilogx.dll' using bootstrap: `register_syncad_tasks'
+hdb: Note: Loaded unit `register_file' from library `work'.
+elab: Note: Elaborating...
+elab: Note: Top-level "instruction_memory".
+elab: Note: Top-level "data_memory".
+elab: Note: Top-level "rftb".
+elab: Note: Elaborate success. 0 error(s), 0 warning(s)
+codegen: Note: Generating code...
+elab: Note: Overwrote previous simulation snapshot named "instruction_memory".
+simgen: Note: Code generation success. 0 error(s), 0 warning(s)
+simgen: Note: Loaded recent snapshot `instruction_memory' from library `work'.
+cpp_c: Note: C/C++ compilation started using: `MS Visual C++' compiler.
+cpp_c: Note: C/C++ compilation success.
+simx: Note: Simulator generation success.
+Process exited with code 0.
+
+Working directory: C:\Users\hesha.DESKTOP-HEGBGV8\Desktop\Mips\MIPS\
+Executable file:   C:\SynaptiCAD\bin\win32\simxloader32.exe
+Program arguments:
+ C:\SynaptiCAD\bin\win32\simxloader32.exe -s +loadpli1=syncadverilogx.dll +linedebug
+SynaptiCAD VHDL/Verilog simulator rev. 45703.21502.
+simgen: Note: Loaded recent snapshot `instruction_memory' from library `work'.
+vpi_r: Note: PLI veriusertfs array loaded from library: `syncadverilogx.dll' using bootstrap: `register_syncad_tasks'
+Init time: 0.4 s (CPU time: 0.4 s)
+sim> start_corba_msg_pump
+sim> run
+SIM:                    0	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	0
+SIM:                 5000	00000000000000000000000000000000	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	1
+SIM:                10000	00000000000000000000000000000000	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	0
+SIM:                15000	00000000000000000000000000000000	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	1
+SIM:                20000	00000000000000000000000000000000	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	0
+SIM:                25000	00000000000000000000000000000000	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	1
+SIM:                30000	00000000000000000000000000000000	00000000000000000000000000110111	0
+Simulation finished via $finish(1) at time 35 ns
+Simulation time: 0.1 s (CPU time: 0.1 s)
+sim> 

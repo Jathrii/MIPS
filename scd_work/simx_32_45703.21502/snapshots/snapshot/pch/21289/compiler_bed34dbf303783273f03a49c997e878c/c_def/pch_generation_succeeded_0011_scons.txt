@@ -1,0 +1,7 @@
+This file indicates that the precompiled header has been successfully
+compiled.  If this file exists, simx simulations will not try to
+re-compile the pre-compiled header -- they will just trust that it
+exists.
+
+To force the pre-compiled header to re-compile itself, delete this file
+before running simx.

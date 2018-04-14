@@ -1,0 +1,1 @@
+ -y lib/verilog -y lib +incdir+./+ +libext+.v+.vo +typdelays ./instruction_memory.v

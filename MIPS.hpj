@@ -11,7 +11,6 @@
         <LibraryDirectories>
           <Directory>.\lib\verilog</Directory>
           <Directory>.\lib</Directory>
-          <Directory>.\lib\verilog\</Directory>
         </LibraryDirectories>
         <LibraryExtensions>
           <Extension>.v</Extension>
@@ -65,6 +64,9 @@
       </LanguageSettings>
       <LanguageSettings Language="systemc">
         <SimTool>Microsoft C/C++ (cl.exe)</SimTool>
+        <IncludeDirectories>
+          <Directory>.\</Directory>
+        </IncludeDirectories>
         <UseVhdl93Defaults>True</UseVhdl93Defaults>
         <DelayType>1</DelayType>
         <PliDriven>False</PliDriven>
@@ -79,6 +81,9 @@
       </LanguageSettings>
       <LanguageSettings Language="c++">
         <SimTool>Microsoft C/C++ (cl.exe)</SimTool>
+        <IncludeDirectories>
+          <Directory>.\</Directory>
+        </IncludeDirectories>
         <UseVhdl93Defaults>True</UseVhdl93Defaults>
         <DelayType>1</DelayType>
         <PliDriven>False</PliDriven>
@@ -155,6 +160,9 @@
       </LanguageSettings>
       <LanguageSettings Language="systemc">
         <SimTool>Microsoft C/C++ (cl.exe)</SimTool>
+        <IncludeDirectories>
+          <Directory>.\</Directory>
+        </IncludeDirectories>
         <UseVhdl93Defaults>True</UseVhdl93Defaults>
         <DelayType>1</DelayType>
         <PliDriven>False</PliDriven>
@@ -169,6 +177,9 @@
       </LanguageSettings>
       <LanguageSettings Language="c++">
         <SimTool>Microsoft C/C++ (cl.exe)</SimTool>
+        <IncludeDirectories>
+          <Directory>.\</Directory>
+        </IncludeDirectories>
         <UseVhdl93Defaults>True</UseVhdl93Defaults>
         <DelayType>1</DelayType>
         <PliDriven>False</PliDriven>
@@ -245,6 +256,9 @@
       </LanguageSettings>
       <LanguageSettings Language="systemc">
         <SimTool>Microsoft C/C++ (cl.exe)</SimTool>
+        <IncludeDirectories>
+          <Directory>.\</Directory>
+        </IncludeDirectories>
         <UseVhdl93Defaults>True</UseVhdl93Defaults>
         <DelayType>1</DelayType>
         <PliDriven>False</PliDriven>
@@ -259,6 +273,9 @@
       </LanguageSettings>
       <LanguageSettings Language="c++">
         <SimTool>Microsoft C/C++ (cl.exe)</SimTool>
+        <IncludeDirectories>
+          <Directory>.\</Directory>
+        </IncludeDirectories>
         <UseVhdl93Defaults>True</UseVhdl93Defaults>
         <DelayType>1</DelayType>
         <PliDriven>False</PliDriven>
@@ -335,6 +352,9 @@
       </LanguageSettings>
       <LanguageSettings Language="systemc">
         <SimTool>Microsoft C/C++ (cl.exe)</SimTool>
+        <IncludeDirectories>
+          <Directory>.\</Directory>
+        </IncludeDirectories>
         <UseVhdl93Defaults>True</UseVhdl93Defaults>
         <DelayType>1</DelayType>
         <PliDriven>False</PliDriven>
@@ -349,6 +369,9 @@
       </LanguageSettings>
       <LanguageSettings Language="c++">
         <SimTool>Microsoft C/C++ (cl.exe)</SimTool>
+        <IncludeDirectories>
+          <Directory>.\</Directory>
+        </IncludeDirectories>
         <UseVhdl93Defaults>True</UseVhdl93Defaults>
         <DelayType>1</DelayType>
         <PliDriven>False</PliDriven>
@@ -369,7 +392,12 @@
   <Verilog2VhdlTranslationOptions>
     <v2v-ncc Enabled="True"></v2v-ncc>
   </Verilog2VhdlTranslationOptions>
+  <UserSourceFileList>
+    <File IsLibrary="False">.\instruction_memory.v</File>
+    <File IsLibrary="False">.\data_memory.v</File>
+  </UserSourceFileList>
   <StimulusAndResultsFile>.\StimulusAndResults.btim</StimulusAndResultsFile>
+  <LogFile>.\simulation.log</LogFile>
   <ProjectSDCFileList></ProjectSDCFileList>
   <SynopsysDesignConstraintLinkedElements>
     <LinkedSDCFiles></LinkedSDCFiles>

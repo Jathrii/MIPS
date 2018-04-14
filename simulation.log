@@ -1,0 +1,12 @@
+Log File Generated: 4/14/2018 7:24:58 AM
+
+[Beginning Verilog MUT preparse]
+Working directory: C:\Users\hesha.DESKTOP-HEGBGV8\Desktop\Mips\MIPS
+Program arguments:
+ simx  -y .\lib\verilog -y .\lib  +incdir+..\..\..\..\..\SynaptiCAD\lib\uvm\src+.\  +libext+.v+.vo  +typdelays  C:\Users\hesha.DESKTOP-HEGBGV8\Desktop\Mips\MIPS\instruction_memory.v
+SynaptiCAD VHDL/Verilog simulator rev. 45703.21502.
+Running in unlicensed evaluation mode.
+vlog_a: Note: Analyzing...
+vlog_a: Note: instruction_memory.v
+vlog_a: Note: Parsing success. 0 error(s), 0 warning(s)
+[Verilog MUT preparse complete]

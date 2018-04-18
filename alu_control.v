@@ -7,10 +7,10 @@ module	alu_control(OUT, AluOp, Funct);
 				
   always	@	(Funct,	AluOp)
   begin
-	  if	(AluOp	==	0)
+	  if	(AluOp	==	2'b00)
 		  OUT	=	3'b010;
 		else begin
-		  if(AluOp == 01)
+		  if(AluOp == 2'b01)
 			  OUT = 3'b110;
 			else begin
 			  case (Funct)

@@ -1,29 +1,15 @@
-module alu(output [31:0] out, output zero, input  [31:0] a,input  [31:0] b,input  [3:0] select);
+module alu(output [31:0] out, output zero, input  [31:0] a,input  [31:0] b,input  [2:0] select);
   always @(select)
   begin
     case(select)
-
-      4'b0000: out=a+b;  
-      4'b0001: out=a-b;
-      4'b0010: out=a*b;
-      4'b0010: out=a&&b;
-      4'b0011: out=a||b;
-
-      4'b0100: out=!a;
-      4'b0101: out=~a;
-      4'b0110: out=a&b;
-      4'b0111: out=a|b;
-
-      4'b1000: out=a<<1;
-      4'b1001: out=a>>1;
-      4'b1010: out=a+1;
-      4'b1011: out=a-1;
-      4'b1100: out=b;
-      4'b1101: out=a;
-
+    3'b000: out=a&&b;
+    3'b001: out=a||b;
+    3'b010: out=a+b;
+    3'b110: out=a-b;
+    3'b111: a<<1;
     endcase
   end
   
-  assign zero = |out;
+  assign zero = ~out;
   
 endmodule

@@ -1,7 +1,7 @@
 <!DOCTYPE Desktop SYSTEM "hdl-prj.dtd">
 <DockedDesktop>
   <ProjectWindow>
-    <Column>574</Column>
+    <Column>97</Column>
     <Column>120</Column>
     <Column>75</Column>
   </ProjectWindow>
@@ -16,18 +16,10 @@
   </WatchDlg>
   <DockablePaneList>
     <DockablePane SystemPane="3">0</DockablePane>
-    <DockablePane SystemPane="0">1</DockablePane>
-    <DockablePane SystemPane="2">2</DockablePane>
-    <DockablePane SystemPane="1">3</DockablePane>
   </DockablePaneList>
   <TabWindowList>
-    <Tab PaneIndex="0" SubPaneIndex="0" SystemTabID="0" Type="Text" Line="1">.\simulation.log</Tab>
+    <Tab PaneIndex="0" SubPaneIndex="0" SystemTabID="0" Type="Text" Line="0">.\simulation.log</Tab>
     <Tab PaneIndex="0" SubPaneIndex="0" SystemTabID="1" Type="Text" Line="0">.\waveperl.log</Tab>
     <Tab PaneIndex="0" SubPaneIndex="0" SystemTabID="2" Type="Misc">Breakpoints</Tab>
-    <Tab PaneIndex="0" SubPaneIndex="0" SystemTabID="3" Type="Misc">Errors</Tab>
-    <Tab PaneIndex="1" SubPaneIndex="0" SystemTabID="20" Type="Misc">C:\Users\hesha.DESKTOP-HEGBGV8\Desktop\Mips\MIPS\MIPS.hpj</Tab>
-    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="23">.\instruction_memory.v</Tab>
-    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="6">.\data_memory.v</Tab>
-    <Tab PaneIndex="3" SubPaneIndex="0" SystemTabID="9" Type="Diagram">.\StimulusAndResults.btim</Tab>
   </TabWindowList>
 </DockedDesktop>

@@ -1,4 +1,4 @@
-module	register_file(read_data_1,	read_data_2, read_reg_1,	read_reg_2,	write_reg,	write_data,	regWrite, clk );
+module	register_file(clk,	read_reg_1,	read_reg_2,	write_reg,	write_data,	regWrite,	read_data_1,	read_data_2);
   input	clk;
   input	[4:0]	read_reg_1,	read_reg_2,	write_reg;
   input	[31:0]	write_data;

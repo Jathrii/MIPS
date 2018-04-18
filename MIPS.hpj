@@ -396,7 +396,6 @@
     <File IsLibrary="False">.\instruction_memory.v</File>
     <File IsLibrary="False">.\data_memory.v</File>
     <File IsLibrary="False">.\register_file.v</File>
-    <File IsLibrary="False">.\register_filetb.v</File>
   </UserSourceFileList>
   <StimulusAndResultsFile>.\StimulusAndResults.btim</StimulusAndResultsFile>
   <LogFile>.\simulation.log</LogFile>

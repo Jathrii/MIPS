@@ -1,1 +1,1 @@
-C:\SynaptiCAD\bin\win32\simx32.exe +libext+.v+.vo +loadpli1=syncadverilogx.dll --scd_nosim +timescale+1ns/1ps --scd_top instruction_memory --scd_top data_memory --scd_top rftb +linedebug +incdir+. -y lib/verilog -y lib
+C:\SynaptiCAD\bin\win32\simx32.exe +libext+.v+.vo +loadpli1=syncadverilogx.dll --scd_nosim +timescale+1ns/1ps +linedebug +incdir+. -y lib/verilog -y lib

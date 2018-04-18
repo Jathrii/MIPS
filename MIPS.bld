@@ -1,12 +1,6 @@
 <!DOCTYPE HdlBuildFileList SYSTEM "hdl-buildfile.dtd">
 <HdlBuildFile TopLevelLanguage="verilog" TbpVersion="20.26" IdlVersion="x.x" HvlLanguage="language_invalid" HdlLanguage="verilog" BaseTimeUnit="ps" DisplayTimeUnit="ns" GenerationDestinationLibrary="work" DestinationLibrary="work">
-  <TopLevelComponents ForceTopLevelComponents="true">
-    <ComponentList Language="verilog">
-      <Component Library="work" Architecture="instruction_memory">instruction_memory</Component>
-      <Component Library="work" Architecture="data_memory">data_memory</Component>
-      <Component Library="work" Architecture="rftb">rftb</Component>
-    </ComponentList>
-  </TopLevelComponents>
+  <TopLevelComponents ForceTopLevelComponents="true"></TopLevelComponents>
   <ExternalSimulatorSettings>
     <Tool Name="Verilogger Extreme">verilog</Tool>
   </ExternalSimulatorSettings>

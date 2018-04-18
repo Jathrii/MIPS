@@ -1,0 +1,9 @@
+*.v~
+*.bld
+*.log
+*.txt
+StimulusAndResultsTim.v
+build_simx.bat
+run_simx.bat
+scd_work
+dump.*

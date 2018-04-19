@@ -1,9 +1,9 @@
 // main module
 `timescale 1ns/1ps
-module MIPS(instruction_load, data_load, instruction_store, data_store, ready);
+module MIPS(instruction_load, data_load, instruction_store, data_store);
 
   // inputs for loading program instructions and data
-  input instruction_load, data_load, ready;
+  input instruction_load, data_load;
   input [31:0] instruction_store;
   input [7:0] data_store;
   
@@ -35,11 +35,12 @@ module MIPS(instruction_load, data_load, instruction_store, data_store, ready);
   assign control_op_code = IF_ID[63:58];
   
   // Instruction Decode / Execution
-  reg [145:0] ID_EX;
+  reg [147:0] ID_EX;
   wire ex_RegWrite, ex_MemtoReg, ex_Branch, ex_MemRead, ex_MemWrite;
+  wire [1:0] ex_ALUOp;
   wire [4:0] ex_rt, ex_rd, ex_dest_reg;
   wire [5:0] ex_funct;
-  wire [31:0] ex_immediate, ex_PC, ex_branch_address, ex_read_data_1, ex_read_data_2, alu_a, alu_b;
+  wire [31:0] ex_immediate, ex_PC, ex_branch_address, ex_read_data_1, ex_read_data_2, ex_half, ex_half_unsigned, alu_a, alu_b;
   assign ex_RegWrite = ID_EX[0];
   assign ex_MemtoReg = ID_EX[1];
   assign ex_Branch = ID_EX[2];
@@ -56,12 +57,14 @@ module MIPS(instruction_load, data_load, instruction_store, data_store, ready);
   assign ex_branch_address = ex_PC + 2 << ex_immediate;
   assign ex_read_data_1 = ID_EX[71:40];
   assign ex_read_data_2 = ID_EX[103:72];
+  assign ex_half = ID_EX[146];
+  assign ex_half_unsigned = ID_EX[147];
   assign alu_a = ex_read_data_1;
   assign alu_b = ex_ALUSrc ? ex_immediate : ex_read_data_2;
   assign ex_dst_reg = ex_RegDst ? ex_rd : ex_rt;
   
   // Execution / Memory
-  reg [106:0] EX_MEM;
+  reg [108:0] EX_MEM;
   wire mem_RegWrite, mem_MemtoReg, mem_Branch, mem_MemRead, mem_MemWrite, mem_Zero, mem_PCSrc;
   wire [4:0] mem_dst_reg;
   wire [31:0] mem_branch_address, mem_alu_out, mem_read_data_2;
@@ -75,6 +78,8 @@ module MIPS(instruction_load, data_load, instruction_store, data_store, ready);
   assign mem_alu_out = EX_MEM[69:38];
   assign mem_read_data_2 = EX_MEM[101:70];
   assign mem_dst_reg = EX_MEM[106:102];
+  assign mem_half = EX_MEM[107];
+  assign mem_half_unsigned = EX_MEM[108];
   assign mem_PCSrc = mem_Branch & mem_Zero;
   
   // Memory / Writeback
@@ -92,19 +97,19 @@ module MIPS(instruction_load, data_load, instruction_store, data_store, ready);
   // Submodules
   
   // Instruction Memory
-  wire fetched_instruction;
+  wire [31:0] fetched_instruction;
   
-  instruction_memory(fetched_instruction, PC, instructio_store, instruction_load, ready, clk);
+  instruction_memory instruction_memory(fetched_instruction, PC, instruction_store, instruction_load, ready, clk);
   
   // Register File
   wire [31:0] rf_read_data_1, rf_read_data_2;
   
-  register_file(rf_read_data_1, rf_read_data_2, rf_rs, rf_rt, rf_reg_write, rf_write_data, wb_RegWrite, clk);
+  register_file register_file(rf_read_data_1, rf_read_data_2, rf_rs, rf_rt, rf_reg_write, rf_write_data, wb_RegWrite, clk);
   
   // Control Unit
   wire [8:0] id_control;
   wire [1:0] id_ALUOp;
-  wire id_RegDst, id_ALUSrc, id_MemtoReg, id_RegWrite, id_MemRead, id_MemWrite, id_Branch;
+  wire id_RegDst, id_ALUSrc, id_MemtoReg, id_RegWrite, id_MemRead, id_MemWrite, id_Branch, id_half, id_half_unsigned;
   assign id_RegDst = id_control[8];
   assign id_ALUSrc = id_control[7];
   assign id_MemtoReg = id_control[6];
@@ -114,7 +119,7 @@ module MIPS(instruction_load, data_load, instruction_store, data_store, ready);
   assign id_Branch = id_control[2];
   assign id_ALUOp = id_control[1:0];
   
-  control_unit control_unit(id_control, control_op_code, clk);  
+  control_unit control_unit(id_control, half, half_unsigned, control_op_code);  
   
   // ALU Control
   wire [2:0] alu_select;
@@ -154,6 +159,8 @@ module MIPS(instruction_load, data_load, instruction_store, data_store, ready);
       ID_EX[135:104] <= id_immediate;
       ID_EX[140:136] <= rf_rt;
       ID_EX[145:141] <= rf_rd;
+      ID_EX[146] <= id_half;
+      ID_EX[147] <= id_half_unsigned;
       
       // Execute Stage
       EX_MEM[0] <= ex_RegWrite;
@@ -166,11 +173,13 @@ module MIPS(instruction_load, data_load, instruction_store, data_store, ready);
       EX_MEM[69:38] <= alu_out;
       EX_MEM[101:70] <= ex_read_data_2;
       EX_MEM[106:102] <= ex_dst_reg;
+      EX_MEM[107] <= ex_half;
+      EX_MEM[108] <= ex_half_unsigned;
       
       // Memory Stage
       MEM_WB[0] <= mem_RegWrite;
       MEM_WB[1] <= mem_MemtoReg;
-      MEM_WB[33:2] <= data_mem_read_data;
+      MEM_WB[33:2] <= mem_half ? (mem_half_unsigned ? { {16{1'b0}}, data_mem_read_data[31:16] } : { {16{data_mem_read_data[31]}}, data_mem_read_data }) : data_mem_read_data;
       MEM_WB[65:34] <= mem_alu_out;
       MEM_WB[70:66] <= mem_dst_reg;
       

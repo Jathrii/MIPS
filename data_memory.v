@@ -13,12 +13,12 @@ module data_memory(read_data, address, write_data, store, MemWrite, MemRead, loa
       memory[counter] <= store;
       counter <= counter+1;
     end
-    else if(~ready)
-      $display("hello there");
-    else if(MemWrite)
-      memory[address] <= write_data;
-    else if(MemRead)
-      read_data <= memory[address];
+    else if(ready) begin
+      if(MemWrite)
+        memory[address] <= write_data;
+      else if(MemRead)
+        read_data <= memory[address];
+    end
   end
   
 endmodule

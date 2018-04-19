@@ -35,11 +35,11 @@ module control_unit(out, half, half_unsigned, instruction);
       half_unsigned <= 0;
     end
     else if (instruction == 6'b100101) begin // lhu
-      half = 1;
+      half <= 1;
       half_unsigned <= 1;
     end
     else begin
-      half = 0;
+      half <= 0;
       half_unsigned <= 0;
     end
   end

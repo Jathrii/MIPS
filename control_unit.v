@@ -4,7 +4,7 @@ module control_unit(out, instruction, clk);
   input clk;
   input [5:0] instruction;
 
-  output [8:0] out;
+  output reg [8:0] out;
 
   always @(instruction)
   begin

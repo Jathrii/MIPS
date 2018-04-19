@@ -15,26 +15,20 @@
     <WatchTab InspectedTime="0" ColumnWidth="0">Inspect 7</WatchTab>
   </WatchDlg>
   <DockablePaneList>
-    <DockablePane Side="L" Location="26 133 276 800">5</DockablePane>
-    <DockablePane Side="R" Location="1260 133 1510 800">5</DockablePane>
-    <DockablePane Side="R" Location="1260 133 1510 800">5</DockablePane>
-    <DockablePane Side="R" Location="931 133 1510 800">5</DockablePane>
+    <DockablePane Side="L" Location="236 227 486 738">5</DockablePane>
+    <DockablePane Side="R" Location="1069 227 1319 738">5</DockablePane>
+    <DockablePane Side="R" Location="1069 227 1319 738">5</DockablePane>
+    <DockablePane Side="R" Location="740 227 1319 738">5</DockablePane>
     <DockablePane SystemPane="2">2</DockablePane>
-    <DockablePane SystemPane="3">0</DockablePane>
   </DockablePaneList>
   <TabWindowList>
     <Tab PaneIndex="4" SubPaneIndex="0" SystemTabID="20" Type="Misc">D:\Documents\GUC\6th Semester\CSEN 601 Computer System Architecture\Project\MIPS\MIPS.hpj</Tab>
     <Tab PaneIndex="5" SubPaneIndex="0" SystemTabID="2" Type="Misc">Breakpoints</Tab>
     <Tab PaneIndex="6" SubPaneIndex="0" SystemTabID="1" Type="Text" Line="0">.\waveperl.log</Tab>
     <Tab PaneIndex="7" SubPaneIndex="0" SystemTabID="3" Type="Misc">Errors</Tab>
-    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="119">.\MIPS.v</Tab>
-    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="15">.\control_unit.v</Tab>
-    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="14">.\alu_control.v</Tab>
-    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="27">.\alu.v</Tab>
-    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="23">.\data_memory.v</Tab>
-    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="0">.\instruction_memory.v</Tab>
-    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="0">.\register_file.v</Tab>
-    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="12">.\register_file_tb.v</Tab>
-    <Tab PaneIndex="0" SubPaneIndex="0" SystemTabID="0" Type="Text" Line="1">.\simulation.log</Tab>
+    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="32">.\MIPS.v</Tab>
+    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="16">.\alu_control.v</Tab>
+    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="0">..\..\..\..\..\..\Downloads\jdoodle.v</Tab>
+    <Tab PaneIndex="2" SubPaneIndex="0" SystemTabID="10" Type="Text" Line="0">.\alu.v</Tab>
   </TabWindowList>
 </DockedDesktop>

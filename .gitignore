@@ -2,6 +2,7 @@
 *.bld
 *.log
 *.txt
+*.dsk
 StimulusAndResultsTim.v
 build_simx.bat
 run_simx.bat

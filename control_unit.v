@@ -1,6 +1,6 @@
-module control_unit(out, half, half_unsigned, instruction);
+module control_unit(out, half, half_unsigned, op_code);
 
-  input [5:0] instruction;
+  input [5:0] op_code;
 
   // OUTPUT = regDst ALUsrc memtoReg regWrite memRead memWrite branch ALUop[1:0] 
 
@@ -14,13 +14,13 @@ module control_unit(out, half, half_unsigned, instruction);
   parameter [8:0] memRead = 9'b000010000;
   parameter [8:0] memWrite = 9'b000001000;
   parameter [8:0] branch = 9'b000000100;
-  parameter [8:0] R_typeALU = 9'b0000001x;
+  parameter [8:0] R_typeALU = 9'b00000010;
   parameter [8:0] branchALU = 9'b00000001;
 
 
-  always @(instruction)
+  always @(op_code)
   begin
-    case(instruction)
+    case(op_code)
       6'b000000 : out <= regDst | regWrite | R_typeALU ; // R-type
     	6'b001000 : out <= ALUsrc | regWrite;                      // addi
     	6'b100011 : out <= ALUsrc | memtoReg | regWrite | memRead; // lw
@@ -30,11 +30,11 @@ module control_unit(out, half, half_unsigned, instruction);
       6'b100101 : out <= 9'bx0x000000 | ALUsrc | memWrite ; // lhu
     endcase
     
-    if (instruction == 6'b100001) begin // lh
+    if (op_code == 6'b100001) begin // lh
       half <= 1;
       half_unsigned <= 0;
     end
-    else if (instruction == 6'b100101) begin // lhu
+    else if (op_code == 6'b100101) begin // lhu
       half <= 1;
       half_unsigned <= 1;
     end

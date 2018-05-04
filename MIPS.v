@@ -29,7 +29,8 @@ module MIPS();
   reg [63:0] IF_ID;
   wire [4:0] rf_rs, rf_rt, rf_rd;
   wire [5:0] control_op_code;
-  wire [31:0] id_PC, id_immediate;
+  wire [31:0] id_PC;
+  wire signed [31:0] id_immediate;
   assign id_PC = IF_ID[31:0];
   assign id_immediate = { {16{IF_ID[47]}}, IF_ID[47:32] };
   assign rf_rs = IF_ID[57:53];
@@ -38,30 +39,32 @@ module MIPS();
   assign control_op_code = IF_ID[63:58];
   
   // Instruction Decode / Execution
-  reg [148:0] ID_EX;
-  wire ex_RegWrite, ex_MemtoReg, ex_Branch, ex_MemRead, ex_MemWrite;
-  wire [1:0] ex_ALUOp;
-  wire [4:0] ex_rt, ex_rd, ex_dest_reg;
+  reg [149:0] ID_EX;
+  wire ex_RegWrite, ex_MemtoReg, ex_Branch, ex_MemRead, ex_MemWrite, ex_half, ex_half_unsigned;
+  wire [2:0] ex_ALUOp;
+  wire [4:0] ex_rt, ex_rd, ex_dest_reg, shamt;
   wire [5:0] ex_funct;
-  wire [31:0] ex_immediate, ex_PC, ex_branch_address, ex_read_data_1, ex_read_data_2, ex_half, ex_half_unsigned, alu_a, alu_b;
+  wire [31:0] ex_PC, ex_branch_address;
+  wire signed [31:0] ex_immediate, ex_read_data_1, ex_read_data_2, alu_a, alu_b;
   assign ex_RegWrite = ID_EX[0];
   assign ex_MemtoReg = ID_EX[1];
   assign ex_Branch = ID_EX[2];
   assign ex_MemRead = ID_EX[3];
   assign ex_MemWrite = ID_EX[4];
   assign ex_RegDst = ID_EX[5];
-  assign ex_ALUOp = ID_EX[7:6];
-  assign ex_ALUSrc = ID_EX[8];
-  assign ex_PC = ID_EX[40:9];
-  assign ex_read_data_1 = ID_EX[72:41];
-  assign ex_read_data_2 = ID_EX[104:73];
-  assign ex_immediate = ID_EX[136:105];
+  assign ex_ALUOp = ID_EX[8:6];
+  assign ex_ALUSrc = ID_EX[9];
+  assign ex_PC = ID_EX[41:10];
+  assign ex_read_data_1 = ID_EX[73:42];
+  assign ex_read_data_2 = ID_EX[105:74];
+  assign ex_immediate = ID_EX[137:106];
+  assign shamt = ex_immediate[10:6];
   assign ex_funct = ex_immediate[5:0];
-  assign ex_rt = ID_EX[141:137];
-  assign ex_rd = ID_EX[146:142];
-  assign ex_branch_address = ex_PC + 2 << ex_immediate;
-  assign ex_half = ID_EX[147];
-  assign ex_half_unsigned = ID_EX[148];
+  assign ex_rt = ID_EX[142:138];
+  assign ex_rd = ID_EX[147:143];
+  assign ex_branch_address = ex_PC + (ex_immediate << 2);
+  assign ex_half = ID_EX[148];
+  assign ex_half_unsigned = ID_EX[149];
   assign alu_a = ex_read_data_1;
   assign alu_b = ex_ALUSrc ? ex_immediate : ex_read_data_2;
   assign ex_dest_reg = ex_RegDst ? ex_rd : ex_rt;
@@ -70,7 +73,8 @@ module MIPS();
   reg [108:0] EX_MEM;
   wire mem_RegWrite, mem_MemtoReg, mem_Branch, mem_MemRead, mem_MemWrite, mem_Zero, PCSrc;
   wire [4:0] mem_dest_reg;
-  wire [31:0] mem_branch_address, mem_alu_out, mem_read_data_2;
+  wire [31:0] mem_branch_address;
+  wire signed [31:0] mem_alu_out, mem_read_data_2;
   assign mem_RegWrite = EX_MEM[0];
   assign mem_MemtoReg = EX_MEM[1];
   assign mem_Branch = EX_MEM[2];
@@ -89,7 +93,7 @@ module MIPS();
   reg [70:0] MEM_WB;
   wire wb_RegWrite, wb_MemtoReg;
   wire [4:0] rf_reg_write;
-  wire [31:0] rf_write_data, wb_mem_data, wb_alu_out;
+  wire signed [31:0] rf_write_data, wb_mem_data, wb_alu_out;
   assign wb_RegWrite = MEM_WB[0];
   assign wb_MemtoReg = MEM_WB[1];
   assign wb_mem_data = MEM_WB[33:2];
@@ -105,22 +109,22 @@ module MIPS();
   instruction_memory instruction_memory(fetched_instruction, PC, instruction_store, instruction_load, ready, clk);
   
   // Register File
-  wire [31:0] rf_read_data_1, rf_read_data_2;
+  wire signed [31:0] rf_read_data_1, rf_read_data_2;
   
   register_file register_file(rf_read_data_1, rf_read_data_2, rf_rs, rf_rt, rf_reg_write, rf_write_data, wb_RegWrite, clk);
   
   // Control Unit
-  wire [8:0] id_control;
-  wire [1:0] id_ALUOp;
+  wire [9:0] id_control;
+  wire [2:0] id_ALUOp;
   wire id_RegDst, id_ALUSrc, id_MemtoReg, id_RegWrite, id_MemRead, id_MemWrite, id_Branch, id_half, id_half_unsigned;
-  assign id_RegDst = id_control[8];
-  assign id_ALUSrc = id_control[7];
-  assign id_MemtoReg = id_control[6];
-  assign id_RegWrite = id_control[5];
-  assign id_MemRead = id_control[4];
-  assign id_MemWrite = id_control[3];
-  assign id_Branch = id_control[2];
-  assign id_ALUOp = id_control[1:0];
+  assign id_RegDst = id_control[9];
+  assign id_ALUSrc = id_control[8];
+  assign id_MemtoReg = id_control[7];
+  assign id_RegWrite = id_control[6];
+  assign id_MemRead = id_control[5];
+  assign id_MemWrite = id_control[4];
+  assign id_Branch = id_control[3];
+  assign id_ALUOp = id_control[2:0];
   
   control_unit control_unit(id_control, id_half, id_half_unsigned, control_op_code);  
   
@@ -130,14 +134,14 @@ module MIPS();
   alu_control alu_control(alu_select, ex_ALUOp, ex_funct);
   
   // ALU
-  wire [31:0] alu_out;
+  wire signed [31:0] alu_out;
   wire alu_zero;
   
-  alu alu(alu_out, alu_zero, alu_a, alu_b, alu_select);
+  alu alu(alu_out, alu_zero, alu_a, alu_b, alu_select, shamt);
   
   // Data Memory
-  wire [31:0] data_mem_read_data, mem_result;
-  assign mem_result = mem_half ? (mem_half_unsigned ? { {16{1'b0}}, data_mem_read_data[31:16] } : { {16{data_mem_read_data[31]}}, data_mem_read_data }) : data_mem_read_data;
+  wire signed [31:0] data_mem_read_data, mem_result;
+  assign mem_result = mem_half ? (mem_half_unsigned ? { {16{1'b0}}, data_mem_read_data[31:16] } : { {16{data_mem_read_data[31]}}, data_mem_read_data[31:16] }) : data_mem_read_data;
   
   data_memory data_memory(data_mem_read_data, mem_alu_out, mem_read_data_2, data_store, mem_MemWrite, mem_MemRead, data_load, ready, clk);
   
@@ -151,10 +155,44 @@ module MIPS();
     instruction_load = 1;
     data_load = 0;
     instruction_index = 0;
-    instruction_input_size = 1;
+    instruction_input_size = 35;
     data_index = 0;
     data_input_size = 0;
     input_program[0] = 32'h20100032; // addi $s0, $0, 50
+    input_program[1] = 32'h2011ff9c; // addi $s1, $0, -100
+    input_program[2] = 32'h20120096; // addi $s2, $0, 150
+    input_program[3] = 32'h201300c8; // addi $s3, $0, 200
+    input_program[4] = 32'hac100000; // sw $s0, 0($0)
+    input_program[5] = 32'hac110004; // sw $s1, 4($0)
+    input_program[6] = 32'hac120008; // sw $s2, 8($0)
+    input_program[7] = 32'hac13000c; // sw $s3, 12($0)
+    input_program[8] = 32'h02116820; // add $t5, $s0, $s1
+    input_program[9] = 32'h8c140004; // lw $s4, 4($0)
+    input_program[10] = 32'h8c15000c; // lw $s5, 12($0)
+    input_program[11] = 32'h0211b024; // and $s6, $s0, $s1
+    input_program[12] = 32'h02729822; // sub $s3, $s3, $s2
+    input_program[13] = 32'h0014a400; // sll $s4, $s4, 16
+    input_program[14] = 32'h200eec54; // addi $t6, $0, 60500
+    input_program[15] = 32'h0230402a; // slt $t0, $s1, $s0
+    input_program[16] = 32'h0230482b; // sltu $t1, $s1, $s0
+    input_program[17] = 32'h02719825; // or $s3, $s3, $s1
+    input_program[18] = 32'h028e5025; // or $t2, $s4, $t6
+    input_program[19] = 32'h00157842; // srl $t7, $s5, 1
+    input_program[20] = 32'h0015c042; // srl $t8, $s5, 1
+    input_program[21] = 32'h0015c842; // srl $t9, $s5, 1
+    input_program[22] = 32'hac0a0010; // sw $t2, 16($0)
+    input_program[23] = 32'h00157842; // srl $t7, $s5, 1
+    input_program[24] = 32'h0015c042; // srl $t8, $s5, 1
+    input_program[25] = 32'h0015c842; // srl $t9, $s5, 1
+    input_program[26] = 32'h00005020; // add $t2, $0, $0
+    input_program[27] = 32'h84080010; // lh $t0, 16($0)
+    input_program[28] = 32'h94080010; // lhu $t1, 16($0)
+    input_program[29] = 32'h200a0001; // addi $t2, $0, 1
+    input_program[30] = 32'h32afffff; // andi $t7, $s5, 0xffff
+    input_program[31] = 32'h32b80000; // andi $t8, $s5, 0
+    input_program[32] = 32'h36b90000; // ori $t9, $s5, 0
+    input_program[33] = 32'h36b9ffff; // ori $t9, $s5, 0xffff
+    input_program[34] = 32'h10000005; // beq $0, $0, 5
     
     // mips initialization
     IF_ID = 0;
@@ -200,16 +238,16 @@ module MIPS();
       ID_EX[3] <= id_MemRead;
       ID_EX[4] <= id_MemWrite;
       ID_EX[5] <= id_RegDst;
-      ID_EX[7:6] <= id_ALUOp;
-      ID_EX[8] <= id_ALUSrc;
-      ID_EX[40:9] <= id_PC;
-      ID_EX[72:41] <= rf_read_data_1;
-      ID_EX[104:73] <= rf_read_data_2;
-      ID_EX[136:105] <= id_immediate;
-      ID_EX[141:137] <= rf_rt;
-      ID_EX[146:142] <= rf_rd;
-      ID_EX[147] <= id_half;
-      ID_EX[148] <= id_half_unsigned;
+      ID_EX[8:6] <= id_ALUOp;
+      ID_EX[9] <= id_ALUSrc;
+      ID_EX[41:10] <= id_PC;
+      ID_EX[73:42] <= rf_read_data_1;
+      ID_EX[105:74] <= rf_read_data_2;
+      ID_EX[137:106] <= id_immediate;
+      ID_EX[142:138] <= rf_rt;
+      ID_EX[147:143] <= rf_rd;
+      ID_EX[148] <= id_half;
+      ID_EX[149] <= id_half_unsigned;
       
       // Execute Stage
       EX_MEM[0] <= ex_RegWrite;
@@ -243,12 +281,14 @@ module MIPS();
       "\n",
       
       "\nInstruction Fetch Stage",
+      "\n=======================",
       "\nThis is PCSrc (binary): %b", PCSrc,
       "\nThis is PC (decimal): %d", PC,
       "\nThis is fetched_instruction (hexadecimal): %h", fetched_instruction,
       "\n",
       
       "\nInstruction Decode Stage",
+      "\n========================",
       "\nThis is control_op_code (hexadecimal): %h", control_op_code,
       "\nThis is id_RegWrite (binary): %b", id_RegWrite,
       "\nThis is id_MemtoReg (binary): %b", id_MemtoReg,
@@ -270,6 +310,7 @@ module MIPS();
       "\n",
       
       "\nExecution Stage",
+      "\n===============",
       "\nThis is ex_PC (decimal): %d", ex_PC,
       "\nThis is ex_RegWrite (binary): %b", ex_RegWrite,
       "\nThis is ex_MemtoReg (binary): %b", ex_MemtoReg,
@@ -283,6 +324,7 @@ module MIPS();
       "\nThis is ex_rd (decimal): %d", ex_rd,
       "\nThis is ex_dest_reg (decimal): %d", ex_dest_reg,
       "\nThis is ex_immediate (decimal): %d", ex_immediate,
+      "\nThis is shamt (decimal): %d", shamt,
       "\nThis is ex_funct (binary): %b", ex_funct,
       "\nThis is ex_branch_address (decimal): %d", ex_branch_address,
       "\nThis is ex_read_data_1 (decimal): %d", ex_read_data_1,
@@ -290,6 +332,7 @@ module MIPS();
       "\nThis is alu_a (decimal): %d", alu_a,
       "\nThis is alu_b (decimal): %d", alu_b,
       "\nThis is ex_branch_address (decimal): %d", ex_branch_address,
+      "\nThis is alu_select (binary): %b", alu_select,
       "\nThis is alu_zero (binary): %b", alu_zero,
       "\nThis is alu_out (decimal): %d", alu_out,
       "\nThis is ex_read_data_2 (decimal): %d", ex_read_data_2,
@@ -298,6 +341,7 @@ module MIPS();
       "\n",
       
       "\nMemory Stage",
+      "\n============",
       "\nThis is mem_RegWrite (binary): %b", mem_RegWrite,
       "\nThis is mem_MemtoReg (binary): %b", mem_MemtoReg,
       "\nThis is mem_Branch (binary): %b", mem_Branch,
@@ -315,8 +359,9 @@ module MIPS();
       "\n",
       
       "\nWrite Back Stage",
+      "\n================",
       "\nThis is mem_RegWrite (binary): %b", mem_RegWrite,
-      "\nThis is rf_reg_write (binary): %b", rf_reg_write,
+      "\nThis is rf_reg_write (decimal): %d", rf_reg_write,
       "\nThis is wb_MemtoReg (binary): %b", wb_MemtoReg,
       "\nThis is wb_alu_out (decimal): %d", wb_alu_out,
       "\nThis is wb_mem_data (decimal): %d", wb_mem_data,
@@ -324,7 +369,7 @@ module MIPS();
       
       "\n=============================================================\n"
       );
-    #120 $finish; // 6 clock cycles, 1 for loading the program and 5 for execution
+    #1480 $finish;
   end
   
 endmodule
